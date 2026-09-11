@@ -148,19 +148,20 @@ class _LoginPageState extends State<LoginPage> { // _ private yapar
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
-Future<void> signUp() async {
-  try {
-    await auth.createUserWithEmailAndPassword(
-      email: emailController.text.trim(),
-      password: passwordController.text.trim(),
-    );
-  }
-    on FirebaseAuthException catch (e) {
+  Future<void> signUp() async {
+    try {
+      await auth.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message ?? 'Sign up failed')),
       );
     }
-}
+  }
 Future<void> login() async {
   try {
     await auth.signInWithEmailAndPassword(
@@ -188,6 +189,7 @@ Future<void> login() async {
     passwordController.dispose();
     super.dispose();
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(

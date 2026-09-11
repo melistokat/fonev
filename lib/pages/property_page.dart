@@ -141,7 +141,7 @@ Future<void> addProperty() async {
       'buildingFloors': int.tryParse(buildingFloorsController.text) ?? 0,
       'heatingType': selectedHeatingType,
 
-      if (imageUrls != null) 'imageUrls': imageUrls,
+      'imageUrls': ?imageUrls,
     });
 
     titleController.clear();
