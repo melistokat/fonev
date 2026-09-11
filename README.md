@@ -2,20 +2,6 @@
 
 Fonev is a Flutter-based mobile real estate management application developed as a technical case study.
 
-The application allows real estate businesses to manage customers and properties, upload property images, search properties using multiple filters, and export property details as PDF files.
-
-## Features
-
-### Authentication
-- User registration with email and password
-- User login
-- Firebase Authentication integration
-
-### Business Management
-- Create and ma# Fonev – Real Estate Management Application
-
-Fonev is a Flutter-based mobile real estate management application developed as a technical case study.
-
 The application allows real estate businesses to manage business information, customers and properties, upload multiple property images, search properties using multiple filters, and export and share property details as PDF files.
 
 ## Features
@@ -64,6 +50,7 @@ Property information includes:
 - Property images
 
 ### Property Search
+
 Tenant customers can be selected during the property search process.
 
 Properties can be filtered by:
@@ -76,6 +63,7 @@ Properties can be filtered by:
 Matching properties are displayed dynamically according to the selected filters.
 
 ### Property Details
+
 Users can open a selected property and view its detailed information.
 
 The detail screen includes:
@@ -94,6 +82,7 @@ The detail screen includes:
 Multiple property images can be viewed in a horizontally scrollable gallery.
 
 ### PDF Export & Sharing
+
 Property information can be converted into a PDF document and shared using the device's native sharing functionality.
 
 ## Technologies
@@ -110,7 +99,7 @@ Property information can be converted into a PDF document and shared using the d
 
 ## Architecture and State Management
 
-The application uses a simple and maintainable project structure with separation between application screens and state management.
+The application uses a simple feature-based structure with separate pages and provider-based state management. A lightweight architecture was preferred instead of a more complex pattern such as Clean Architecture or MVVM because of the limited scope and development time of the case study.
 
 Provider is used for state management.
 
@@ -149,6 +138,8 @@ The following Firebase services are used:
 ### Firebase Authentication
 
 Email/password authentication is used for user registration and login.
+
+Registration is handled through the **Sign Up** action on the authentication screen.
 
 Only authenticated users are allowed to access application data according to the configured Firestore and Storage security rules.
 
@@ -313,7 +304,7 @@ Make sure Flutter and the required Android development tools are installed.
 Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/melistokat/fonev.git
 ```
 
 Open the project directory:
@@ -340,7 +331,7 @@ flutter run
 
 A typical application flow is:
 
-1. Register a new user or log in using an existing account.
+1. Register a new user using the Sign Up action or log in using an existing account.
 2. Create or update real estate business information.
 3. Create an Owner customer.
 4. Add a property and associate it with the Owner customer.
@@ -370,219 +361,6 @@ The screenshots demonstrate the main application screens and functionality, incl
 The application has been developed and tested on Android using an Android emulator.
 
 Android is the primary platform targeted for this technical case study.
-
-## Developer
-
-Developed by Melis Tokat as a Flutter mobile application technical case study.nage real estate business information
-- Store business name and authorized person information
-
-### Customer Management
-- Add customers
-- Edit customer information
-- Delete customers
-- Define customer type
-- Use customers as property owners
-
-### Property Management
-- Add properties
-- Edit properties
-- Delete properties
-- Associate properties with customers
-- Upload property images
-- Store property images using Firebase Storage
-
-Property information includes:
-- Title
-- Address
-- Listing type (For Rent / For Sale)
-- Property type
-- Price
-- Square meters
-- Room count
-- Floor
-- Building floors
-- Heating type
-- Property owner
-- Property image
-
-### Property Search
-Properties can be filtered by:
-- Listing type
-- Minimum price
-- Maximum price
-- Room count
-- Minimum square meters
-
-### Property Details
-Users can view detailed information about a selected property.
-
-### PDF Export & Sharing
-Property information can be converted into a PDF document and shared using the device's native sharing functionality.
-
-## Technologies
-
-- Flutter
-- Dart
-- Firebase Authentication
-- Cloud Firestore
-- Firebase Storage
-- Provider
-- Image Picker
-- PDF
-- Printing
-
-## Architecture and State Management
-
-Provider is used for state management.
-
-`PropertyProvider` is responsible for managing property data and notifying listening widgets when the application state changes.
-
-This approach was selected because it provides a simple separation between UI and state management while keeping the project maintainable and easy to understand.
-
-The project is organized mainly into:
-
-```text
-lib/
-├── pages/
-│   ├── business_page.dart
-│   ├── customer_page.dart
-│   ├── property_page.dart
-│   ├── search_page.dart
-│   └── property_detail_page.dart
-│
-├── providers/
-│   └── property_provider.dart
-│
-├── firebase_options.dart
-└── main.dart
-```
-
-## Firebase
-
-The application uses the following Firebase services:
-
-### Firebase Authentication
-
-Email/password authentication is used for user registration and login.
-
-### Cloud Firestore
-
-Application data is stored using a NoSQL collection-based structure.
-
-Main collections:
-
-```text
-businesses
-customers
-properties
-```
-
-Example property document:
-
-```text
-properties/{propertyId}
-
-title
-address
-price
-type
-ownerId
-propertyType
-squareMeters
-roomCount
-floor
-buildingFloors
-heatingType
-imageUrl
-```
-
-The `ownerId` field creates a relationship between a property and a customer document.
-
-### Firebase Storage
-
-Property images are stored under:
-
-```text
-property_images/
-```
-
-After an image is uploaded, its download URL is stored in the corresponding Firestore property document using the `imageUrl` field.
-
-## Security
-
-Firestore and Firebase Storage access is restricted to authenticated users.
-
-Firebase configuration files are intentionally excluded from the public repository:
-
-```text
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist
-```
-
-## Firebase Setup
-
-To run the project with Firebase:
-
-1. Create a Firebase project.
-2. Enable Email/Password authentication.
-3. Create a Cloud Firestore database.
-4. Enable Firebase Storage.
-5. Register the Android application with Firebase.
-6. Add the required Firebase configuration for the local environment.
-7. Configure the project using FlutterFire.
-
-Firebase configuration files containing project-specific configuration are not included in the public repository.
-
-## Installation
-
-Make sure Flutter is installed.
-
-Clone the repository:
-
-```bash
-git clone <repository-url>
-```
-
-Open the project directory:
-
-```bash
-cd fonev
-```
-
-Install dependencies:
-
-```bash
-flutter pub get
-```
-
-Configure Firebase for your own Firebase project and then run:
-
-```bash
-flutter run
-```
-
-## Application Flow
-
-A typical application flow is:
-
-1. Register or login.
-2. Create business information.
-3. Create an owner customer.
-4. Add a property associated with the owner.
-5. Select and upload a property image.
-6. Create additional customers when required.
-7. Search properties using filters.
-8. Open the property detail screen.
-9. Export and share the property information as PDF.
-10. Reload the application and retrieve persisted data from Firebase.
-
-## Screenshots
-
-Application screenshots will be available in the `screenshots/` directory.
-
-## Platform
-
-The application has been developed and tested on Android using an Android emulator.
 
 ## Developer
 
