@@ -29,6 +29,7 @@ class _BusinessPageState extends State<BusinessPage> {
 
     final doc = await firestore.collection('businesses').doc(user.uid).get();
 
+    if (!doc.exists) return;
 
     final data = doc.data();
 
