@@ -13,7 +13,32 @@ class _BusinessPageState extends State<BusinessPage> {
   final addressController = TextEditingController();
   final phoneController = TextEditingController();
   final authorizedPersonController = TextEditingController();
+
   final firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    loadBusiness();
+  }
+
+  Future<void> loadBusiness() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) return;
+
+    final doc = await firestore.collection('businesses').doc(user.uid).get();
+
+
+    final data = doc.data();
+
+    if (data == null) return;
+
+    nameController.text = data['name'] ?? '';
+    addressController.text = data['address'] ?? '';
+    phoneController.text = data['phone'] ?? '';
+    authorizedPersonController.text = data['authorizedPerson'] ?? '';
+  }
 Future<void> saveBusiness() async {
   final user = FirebaseAuth.instance.currentUser;
   if (user == null) return;
@@ -23,7 +48,9 @@ Future<void> saveBusiness() async {
     'phone': phoneController.text.trim(),
     'authorizedPerson': authorizedPersonController.text.trim(),
     'userId': user.uid,
+
   });
+
   if (!mounted) return;
 
   ScaffoldMessenger.of(context).showSnackBar(

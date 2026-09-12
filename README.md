@@ -54,7 +54,8 @@ Property information includes:
 Tenant customers can be selected during the property search process.
 
 Properties can be filtered by:
-- Listing type
+- Listing type (For Rent / For Sale)
+- Property type (Apartment / House / Office)
 - Minimum price
 - Maximum price
 - Room count
@@ -337,7 +338,7 @@ A typical application flow is:
 4. Add a property and associate it with the Owner customer.
 5. Select and upload one or more property images.
 6. Create a Tenant customer.
-7. Select the Tenant and search for matching properties using listing type, price, room count, and square meter filters.
+7. Select the Tenant and search for matching properties using listing type, property type, price, room count, and square meter filters.
 8. Open a matching property's detail screen.
 9. Export and share the property information as a PDF document.
 10. Restart the application and retrieve persisted data from Firebase.

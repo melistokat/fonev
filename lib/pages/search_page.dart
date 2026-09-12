@@ -13,6 +13,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String selectedType = 'Any';
+  String selectedPropertyType = 'Any';
 
   final minPriceController = TextEditingController();
   final maxPriceController = TextEditingController();
@@ -43,6 +44,7 @@ class _SearchPageState extends State<SearchPage> {
   bool matchesFilters(Map<String, dynamic> data) {
     final type = data['type']?.toString() ?? '';
     final price = (data['price'] as num?)?.toDouble() ?? 0;
+    final propertyType = data['propertyType']?.toString() ?? '';
     final roomCount = data['roomCount']?.toString() ?? '';
     final squareMeters =
         (data['squareMeters'] as num?)?.toDouble() ?? 0;
@@ -57,6 +59,11 @@ class _SearchPageState extends State<SearchPage> {
     double.tryParse(minSquareMetersController.text.trim());
 
     if (selectedType != 'Any' && type != selectedType) {
+      return false;
+    }
+
+    if (selectedPropertyType != 'Any' &&
+        propertyType != selectedPropertyType) {
       return false;
     }
 
@@ -195,6 +202,38 @@ class _SearchPageState extends State<SearchPage> {
               },
             ),
 
+            const SizedBox(height: 12),
+
+            DropdownButtonFormField<String>(
+              initialValue: selectedPropertyType,
+              decoration: const InputDecoration(
+                labelText: 'Property Type',
+                border: OutlineInputBorder(),
+              ),
+              items: const [
+                DropdownMenuItem(
+                  value: 'Any',
+                  child: Text('Any'),
+                ),
+                DropdownMenuItem(
+                  value: 'Apartment',
+                  child: Text('Apartment'),
+                ),
+                DropdownMenuItem(
+                  value: 'House',
+                  child: Text('House'),
+                ),
+                DropdownMenuItem(
+                  value: 'Office',
+                  child: Text('Office'),
+                ),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  selectedPropertyType = value ?? 'Any';
+                });
+              },
+            ),
             const SizedBox(height: 12),
 
             TextField(

@@ -349,8 +349,10 @@ Future<void> addProperty() async {
             const SizedBox(height: 12),
 
             StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('customers').snapshots(),
-              builder: (context, snapshot) {
+              stream: FirebaseFirestore.instance
+                  .collection('customers')
+                  .where('customerType', isEqualTo: 'Owner')
+                  .snapshots(),              builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const CircularProgressIndicator();
                 }
